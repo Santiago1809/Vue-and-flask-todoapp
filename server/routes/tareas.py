@@ -34,4 +34,36 @@ def crear_tarea():
     except Exception as e:
         return jsonify({'error': str(e)})
     
-##TODO: Crear la lógica para eliminar y editar una tarea. Dentro de las opciones de edición se debe agregar la opción de cambiar una tarea de grupo
+@tareas.route('/update_task', methods=['POST'])
+def actualizar_tarea():
+    data = request.get_json()
+    id_tarea = data['id_tarea']
+    titulo = data['titulo']
+    descripcion = data['descripcion']
+    id_grupo = data['id_grupo']
+
+    tarea_ac = Tarea.query.get(id_tarea)  # Utiliza el método get() en lugar de filter()
+
+    if tarea_ac:
+        try:
+            tarea_ac.titulo = titulo
+            tarea_ac.descripcion = descripcion
+            tarea_ac.id_grupo = id_grupo
+            db.session.commit()  # Guarda los cambios en la base de datos
+            return tarea_ac.to_dict()
+        except Exception as e:
+            return jsonify({'error': str(e)})
+    else:
+        return jsonify({'error': 'La tarea no existe.'})
+    
+
+@tareas.route('/delete_task', methods=['DELETE'])
+def eliminar_tarea():
+    id_tarea = request.args.get('id_tarea')
+    tarea_eliminar = Tarea.query.get(id_tarea)
+    try:
+        db.session.delete(tarea_eliminar)
+        db.session.commit()
+        return jsonify({'mensaje':'Tarea eliminada'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
