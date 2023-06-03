@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, url_for, jsonify
+from flask import Blueprint, request, jsonify
 from models.Usuario import Usuario
 from utils.db import db
 import bcrypt
