@@ -14,6 +14,13 @@ def groups():
 
     return jsonify(grupos_serializables)
 
+@grupo.route('/group', methods=['GET'])
+def group():
+    id_grupo = request.args.get('id_grupo')
+    grupo = Grupo.query.get(id_grupo)
+
+    return jsonify({'Grupo': grupo.to_dict()})
+
 
 @grupo.route('/create_group', methods=['POST'])
 def create_group():
@@ -24,10 +31,8 @@ def create_group():
     db.session.add(nuevo_grupo)
     try:
         db.session.commit()
-        return jsonify({'grupo': {
-            'id_grupo': nuevo_grupo.id_grupo,
-            'nombre': nuevo_grupo.nombre_grupo
-        }})
+        grupos_bd = Grupo.query.all()
+        return jsonify({'Grupos': grupo.to_dict() for grupo in grupos_bd})
     except Exception as e:
         return jsonify({'error': str(e)}), 408
 

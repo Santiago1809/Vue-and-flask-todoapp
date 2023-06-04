@@ -19,6 +19,11 @@ const routes = [
     path: '/index',
     name: 'index',
     component: () => import('../views/IndexView.vue')
+  },
+  {
+    path: '/tasks/:id',
+    name: 'tasks',
+    component: () => import('../views/TareasView.vue')
   }
 ]
 

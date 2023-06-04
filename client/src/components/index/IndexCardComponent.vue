@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg">
+  <div class="max-w-lg rounded overflow-hidden shadow-lg hover:bg-gray-300 cursor-pointer">
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ nombreGrupo }}</div>
     </div>

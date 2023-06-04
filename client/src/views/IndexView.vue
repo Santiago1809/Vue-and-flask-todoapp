@@ -12,8 +12,9 @@
       <div class="w-full lg:w-6/12 xl:w-6/12">
         <div class="h-full flex flex-col justify-center">
           <div v-for="(grupo, index) in grupos" :key="index">
-            <Card :nombreGrupo="grupo.nombre" />
+            <router-link :to="`/tasks/${grupo.id}`"><Card :nombreGrupo="grupo.nombre" /></router-link>
           </div>
+          <CardInput @grupo-agregado="agregarGrupo" />
         </div>
       </div>
     </div>
@@ -22,6 +23,8 @@
 
 <script>
 import Card from "../components/index/IndexCardComponent.vue";
+import CardInput from "../components/index/IndexCardInputComponent.vue";
+
 let base_url = "http://localhost:3000";
 export default {
   name: "Index page",
@@ -32,7 +35,7 @@ export default {
   },
   mounted() {
     this.getGroups();
-    document.title = "Grupos"
+    document.title = "Grupos";
   },
   methods: {
     getGroups() {
@@ -40,13 +43,19 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           data.map((group) => {
-            this.grupos.push({'nombre':group.nombre, 'id':group.id_grupo});
+            this.grupos.push({ nombre: group.nombre, id: group.id_grupo });
           });
         });
+
+        this.$emit("grupos-cargados", this.grupos);
+    },
+    agregarGrupo(grupo) {
+      this.grupos.push({ nombre: grupo, id: this.grupos.length + 1 });
     },
   },
   components: {
     Card,
+    CardInput,
   },
 };
 </script>
