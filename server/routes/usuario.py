@@ -16,7 +16,7 @@ def register():
     # Verificar si el correo ya existe en la base de datos
     usuario_existente = Usuario.query.filter_by(correo=correo).first()
     if usuario_existente:
-        return jsonify({'error': 'El correo ya está registrado'}), 409
+        return jsonify({'register': 0}), 409
 
     # Hash de la contraseña
     contraseña = bcrypt.hashpw(contraseñaFormulario.encode('utf-8'), bcrypt.gensalt())
@@ -25,10 +25,7 @@ def register():
     try:
         db.session.add(nuevo_usuario)
         db.session.commit()
-        return jsonify({'usuario_creado': {
-            'nombre': nuevo_usuario.nombre,
-            'correo': nuevo_usuario.correo
-        }})
+        return jsonify({'register': 1})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
