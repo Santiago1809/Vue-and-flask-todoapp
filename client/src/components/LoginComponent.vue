@@ -1,6 +1,5 @@
 <script>
 import Alerta from "./AlertaComponent.vue";
-
 let base_url = "http://localhost:3000";
 export default {
   name: "Login",
@@ -12,6 +11,11 @@ export default {
       registro: false,
       alerta: false,
     };
+  },
+  watch: {
+    registro(newRegistro) {
+      this.getTitle()
+    }
   },
   methods: {
     loguinForm() {
@@ -25,8 +29,10 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.access == "allowed") {
-            alert("Acceso permitido");
+          console.log(data);
+          if (data[0].access == "allowed") {
+            localStorage.setItem("usuario", data[1].usuario.id_usuario);
+            this.$router.push("/index");
           } else {
             this.alerta = true;
           }
@@ -44,13 +50,26 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.register===1){
-            alert("Registro completado")
-          }else {
-            this.alerta = true
+          if (data[0].register === 1) {
+            localStorage.setItem("usuario", data[1].usuario.id_usuario);
+            this.$router.push("/index");
+          } else {
+            this.alerta = true;
           }
         });
     },
+    getTitle() {
+      document.title = this.registro ? "Registro" : "Inicio de sesión";
+    },
+    lookSesionActive(){
+      if(localStorage.getItem("usuario")){
+        this.$router.push("/index");
+      }
+    }
+  },
+  mounted() {
+    this.getTitle();
+    this.lookSesionActive();
   },
   components: {
     Alerta,

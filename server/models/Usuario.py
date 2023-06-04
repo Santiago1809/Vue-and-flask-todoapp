@@ -1,5 +1,6 @@
 from utils.db import db
 
+
 class Usuario(db.Model):
     id_usuario = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(255))
@@ -11,3 +12,10 @@ class Usuario(db.Model):
         self.nombre = nombre
         self.correo = correo
         self.contraseña = contraseña
+
+    def to_dict(self):
+        return {
+            'id_usuario': self.id_usuario,
+            'nombre': self.nombre,
+            'correo': self.correo
+        }

@@ -25,7 +25,7 @@ def register():
     try:
         db.session.add(nuevo_usuario)
         db.session.commit()
-        return jsonify({'register': 1})
+        return jsonify({'register': 1}, {'usuario': nuevo_usuario.to_dict()})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -38,6 +38,6 @@ def login():
         usuario = Usuario.query.filter_by(correo=correo).first()
 
         if usuario and bcrypt.checkpw(contraseñaRecibida.encode('utf8'), usuario.contraseña.encode('utf8')):
-            return jsonify({'access': 'allowed'})
+            return jsonify({'access': 'allowed'}, {'usuario': usuario.to_dict()} )
         else:
             return jsonify({'access': 'denied'})
