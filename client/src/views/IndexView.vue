@@ -11,9 +11,7 @@
       <!-- Right column container -->
       <div class="w-full lg:w-6/12 xl:w-6/12 overflow-y-auto">
         <div v-for="(grupo, index) in grupos" :key="index">
-          <router-link :to="`/tasks/${grupo.id}`">
-            <Card :nombreGrupo="grupo.nombre" />
-          </router-link>
+          <Card :nombreGrupo="grupo.nombre" :ruta="`/tasks/${grupo.id}`" :id="grupo.id"/>
         </div>
         <CardInput @grupo-agregado="agregarGrupo" />
       </div>
