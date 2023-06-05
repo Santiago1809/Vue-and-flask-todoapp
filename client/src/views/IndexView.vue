@@ -1,7 +1,7 @@
 <template>
   <section class="h-screen">
     <div class="h-full flex">
-      <!-- Left column container with background-->
+      <!-- Left column container with background -->
       <div class="w-full lg:w-6/12 xl:w-6/12 bg-slate-600">
         <div class="h-full flex items-center justify-center">
           <h1 class="text-9xl text-white">Grupos</h1>
@@ -9,23 +9,22 @@
       </div>
 
       <!-- Right column container -->
-      <div class="w-full lg:w-6/12 xl:w-6/12">
-        <div class="h-full flex flex-col justify-center">
-          <div v-for="(grupo, index) in grupos" :key="index">
-            <router-link :to="`/tasks/${grupo.id}`"><Card :nombreGrupo="grupo.nombre" /></router-link>
-          </div>
-          <CardInput @grupo-agregado="agregarGrupo" />
+      <div class="w-full lg:w-6/12 xl:w-6/12 overflow-y-auto">
+        <div v-for="(grupo, index) in grupos" :key="index">
+          <router-link :to="`/tasks/${grupo.id}`">
+            <Card :nombreGrupo="grupo.nombre" />
+          </router-link>
         </div>
+        <CardInput @grupo-agregado="agregarGrupo" />
       </div>
     </div>
   </section>
 </template>
-
 <script>
 import Card from "../components/index/IndexCardComponent.vue";
 import CardInput from "../components/index/IndexCardInputComponent.vue";
 
-let base_url = "http://localhost:3000";
+let base_url = "http://192.168.1.3:3000";
 export default {
   name: "Index page",
   data() {
@@ -47,7 +46,7 @@ export default {
           });
         });
 
-        this.$emit("grupos-cargados", this.grupos);
+      this.$emit("grupos-cargados", this.grupos);
     },
     agregarGrupo(grupo) {
       this.grupos.push({ nombre: grupo, id: this.grupos.length + 1 });

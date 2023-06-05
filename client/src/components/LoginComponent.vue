@@ -1,6 +1,6 @@
 <script>
 import Alerta from "./AlertaComponent.vue";
-let base_url = "http://localhost:3000";
+let base_url = "http://192.168.1.3:3000";
 export default {
   name: "Login",
   data() {
@@ -14,8 +14,8 @@ export default {
   },
   watch: {
     registro(newRegistro) {
-      this.getTitle()
-    }
+      this.getTitle();
+    },
   },
   methods: {
     loguinForm() {
@@ -61,11 +61,11 @@ export default {
     getTitle() {
       document.title = this.registro ? "Registro" : "Inicio de sesión";
     },
-    lookSesionActive(){
-      if(localStorage.getItem("usuario")){
+    lookSesionActive() {
+      if (localStorage.getItem("usuario")) {
         this.$router.push("/index");
       }
-    }
+    },
   },
   mounted() {
     this.getTitle();

@@ -1,6 +1,6 @@
 <template>
   <form
-    class="max-w-lg rounded overflow-hidden shadow-lg"
+    class="max-w-lg rounded overflow-hidden shadow-lg mt-4"
     @submit.prevent="add_grupo()"
   >
     <div class="flex items-center px-6 py-4">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-let base_url = "http://localhost:3000";
+let base_url = "http://192.168.1.3:3000";
 export default {
   name: "InputCardComponent",
   data() {
@@ -54,7 +54,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           this.$emit("grupo-agregado", data.Grupos.nombre);
-          this.nuevo_grupo = ""
+          this.nuevo_grupo = "";
         });
     },
   },
