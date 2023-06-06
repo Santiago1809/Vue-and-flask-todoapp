@@ -35,5 +35,5 @@ En esta sesion se ven las tareas dentro de cada grupo, tambien pueden ser editad
 ![Página de eliminación de tareas](public/img/task_delete.png)
 
 # Cierre de sesion
-En todas las ventas (#Grupos y #Tareas), en la esquina superior derecha, hay un botón que desplegará la opción de cerrar sesión
+En todas las ventas (Grupos y Tareas), en la esquina superior derecha, hay un botón que desplegará la opción de cerrar sesión
 ![Botón de cierre de sesión](public/img/logout_btn.png)
