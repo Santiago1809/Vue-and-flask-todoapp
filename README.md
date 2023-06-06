@@ -1,6 +1,10 @@
 # Vue-and-flask-todoapp
 ![Pagiina de inicio de sesión](public/img/loguin.png)
 
+# Requerimientos
+* Python 3.10 o superior
+* node.js 18.16.0 o similares
+
 # Guía de instalación
 
 1. Crear una base de datos sql según los lineamientos del modelo de la mase de datos:
