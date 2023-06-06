@@ -1,4 +1,4 @@
-# Vueotes
+# Vuenotes
 ![Pagiina de inicio de sesión](public/img/loguin.png)
 
 # Requerimientos
