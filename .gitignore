@@ -2,3 +2,4 @@ node_modules
 *.drwaio
 requests
 __pycache__
+.vscode
