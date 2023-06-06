@@ -77,122 +77,84 @@ export default {
 };
 </script>
 <template>
-  <div>
-    <div v-show="!registro">
-      <Alerta
-        msg="Usuario o contraseña incorrectos."
-        titulo="Error al iniciar sesión: "
-        v-show="alerta"
-      />
-      <div class="w-full max-w-md mx-auto mt-40 bg-gray-50">
-        <div class="flex flex-col justify-between sm:flex-row">
-          <div
-            class="card w-full bg-slate-500 p-3 rounded h-full text-center sm:w-1/2 sm:p-0 items-center"
-          >
-            <div class="flex flex-col justify-center h-full">
-              <h2 class="text-xl font-semibold text-white mt-10">
-                No estás registrado?
-              </h2>
-              <p class="mt-10 mb-10 text-gray-300">
-                Dale click al siguiente botón para registrarte:
-              </p>
-              <button
-                class="mt-4 text-sm py-2 px-3 bg-blue-600 rounded hover:bg-blue-800 text-white font-bold"
+  <section class="h-screen">
+    <LogoutButton />
+    <div class="h-full flex">
+      <!-- Left column container with background -->
+      <div class="w-full lg:w-6/12 xl:w-6/12 bg-slate-600">
+        <div class="h-full flex-col flex items-center justify-center">
+          <h1 class="text-9xl text-white">VueNotes</h1>
+          <i class="fa-solid fa-note-sticky block text-white text-8xl"></i>
+        </div>
+      </div>
+
+      <!-- Right column container -->
+      <div class="w-full lg:w-6/12 xl:w-6/12 overflow-y-auto flex items-center justify-center">
+        <div class="w-full max-w-md">
+          <div class="bg-gray-300 shadow rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-2xl font-semibold mb-6 text-center" v-show="!registro">Inicio de sesión</h2>
+            <h2 class="text-2xl font-semibold mb-6 text-center" v-show="registro">Registro</h2>
+            <form @submit.prevent="registro ? registerForm($event) : loguinForm($event)">
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre" v-show="registro">
+                  Nombre
+                </label>
+                <input
+                  v-show="registro"
+                  type="text"
+                  id="nombre"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Nombre"
+                  v-model="nombre"
+                />
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                  Correo
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Correo"
+                  v-model="correo"
+                />
+              </div>
+              <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Contraseña"
+                  v-model="contraseña"
+                />
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
+                >
+                  {{ registro ? 'Registrarme' : 'Ingresar' }}
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-700">
+              {{ registro ? 'Ya tienes cuenta?' : "No estás registrado?" }}
+              <span
+                class="text-blue-500 cursor-pointer"
                 @click="registro = !registro"
               >
-                Registrarme
-              </button>
-            </div>
+                {{ registro ? 'Inicia sesión aquí' : 'Regístrate aquí' }}
+              </span>
+            </p>
           </div>
-          <form
-            @submit.prevent="loguinForm($event)"
-            class="card w-full bg-blue-300 shadow-md rounded px-8 pt-6 pb-8 mb-8 max-w-500px sm:w-1/2 sm:ml-0"
-          >
-            <div>
-              <h2 class="text-xl font-semibold mb-4">Inicio de sesión</h2>
-              <input
-                type="email"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Correo"
-                v-model="correo"
-              />
-              <input
-                type="password"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Contraseña"
-                v-model="contraseña"
-              />
-              <button
-                type="submit"
-                class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 mb-6"
-              >
-                Ingresar
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>
-    <div v-show="registro">
-      <Alerta
-        msg="Usuario ya existe"
-        titulo="Error al intentar registrar: "
-        v-show="alerta"
-      />
-      <div class="w-full max-w-md mx-auto mt-40 bg-gray-50">
-        <div class="flex flex-col justify-between sm:flex-row">
-          <div
-            class="card w-full bg-slate-500 p-3 rounded h-full text-center sm:w-1/2 sm:p-0 items-center"
-          >
-            <div class="flex flex-col justify-center h-full">
-              <h2 class="text-xl font-semibold text-white mt-10">
-                Ya tienes cuenta?
-              </h2>
-              <p class="mt-10 mb-20 text-gray-300">
-                Dale click al siguiente botón para ir a iniciar sesión:
-              </p>
-              <button
-                class="mt-4 text-sm py-2 px-3 bg-blue-600 rounded hover:bg-blue-800 text-white font-bold"
-                @click="registro = !registro"
-              >
-                Iniciar sesión
-              </button>
-            </div>
-          </div>
-          <form
-            class="card w-full bg-blue-300 shadow-md rounded px-8 pt-6 pb-8 mb-8 max-w-500px sm:w-1/2 sm:ml-0"
-            @submit.prevent="registerForm($event)"
-          >
-            <div>
-              <h2 class="text-xl font-semibold mb-4">Registro</h2>
-              <input
-                type="email"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Correo"
-                v-model="correo"
-              />
-              <input
-                type="text"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Nombre"
-                v-model="nombre"
-              />
-              <input
-                type="password"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Contraseña"
-                v-model="contraseña"
-              />
-              <button
-                type="submit"
-                class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 mb-6"
-              >
-                Registrarme
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 </template>

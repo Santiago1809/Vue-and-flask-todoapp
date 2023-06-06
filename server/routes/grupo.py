@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.Grupo import Grupo
 from utils.db import db
+from models.Tarea import Tarea
 
 grupo = Blueprint('Grupo', __name__)
 
@@ -13,6 +14,7 @@ def groups():
     grupos_serializables = [grupo.to_dict() for grupo in grupos]
 
     return jsonify(grupos_serializables)
+
 
 @grupo.route('/group', methods=['GET'])
 def group():
@@ -45,6 +47,7 @@ def delete_group():
         grupo = Grupo.query.get(id_grupo)
 
         if grupo:
+            Tarea.query.filter_by(id_grupo=id_grupo).delete()
             db.session.delete(grupo)
             db.session.commit()
             return jsonify({'message': 'Grupo eliminado correctamente'})

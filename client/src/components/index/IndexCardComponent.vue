@@ -12,8 +12,9 @@
           :nombreGrupo="nombreGrupo"
           :id="id"
           :EditarGrupo="true"
+          color="blue"
         />
-        <ModalComponent :text="'fa-solid fa-trash'" />
+        <ModalComponent :text="'fa-solid fa-trash'" :BorrarGrupo="true" :id="id" :nombreGrupo="nombreGrupo" color="red"/>
       </div>
     </div>
   </div>

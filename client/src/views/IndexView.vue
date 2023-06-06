@@ -1,5 +1,6 @@
 <template>
   <section class="h-screen">
+  <LogoutButton />
     <div class="h-full flex">
       <!-- Left column container with background -->
       <div class="w-full lg:w-6/12 xl:w-6/12 bg-slate-600">
@@ -21,6 +22,7 @@
 <script>
 import Card from "../components/index/IndexCardComponent.vue";
 import CardInput from "../components/index/IndexCardInputComponent.vue";
+import LogoutButton from "@/components/LogoutButtonComponent.vue";
 
 let base_url = "http://192.168.1.3:3000";
 export default {
@@ -53,6 +55,7 @@ export default {
   components: {
     Card,
     CardInput,
+    LogoutButton
   },
 };
 </script>

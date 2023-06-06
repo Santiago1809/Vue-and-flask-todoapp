@@ -14,6 +14,7 @@ class Tarea(db.Model):
 
     def to_dict(self):
         return {
+            'id_tarea': self.id_tarea,
             'titulo': self.titulo,
             'descripcion': self.descripcion,
             'id_grupo': self.id_grupo
