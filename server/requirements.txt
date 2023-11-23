@@ -3,3 +3,5 @@ flask_sqlalchemy
 flask_cors
 bcrypt
 psycopg2-binary
+psycopg2
+pygresql
